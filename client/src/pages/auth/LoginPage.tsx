@@ -1,7 +1,11 @@
-import React from "react";
+import { AuthBlock } from "@/blocks";
 
 const LoginPage = () => {
-  return <div>LoginPage</div>;
+  return (
+    <div className="text">
+      <AuthBlock />
+    </div>
+  );
 };
 
 export default LoginPage;

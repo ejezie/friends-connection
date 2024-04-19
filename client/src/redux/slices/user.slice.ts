@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 const initialState = {
   token: null,
@@ -8,7 +8,7 @@ const userSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
-    updateUser(state, action) {
+    updateUser(state, action: PayloadAction<unknown>) {
       const userObj = action.payload;
       const newState = { ...state };
       Object.assign(newState, userObj);

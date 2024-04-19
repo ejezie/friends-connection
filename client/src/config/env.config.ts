@@ -8,6 +8,6 @@ const environment: { [key: string]: { API_BASE_URL: string } } = {
   },
 };
 
-const currentEnvironment = process.env.REACT_APP_ENV || "development";
+const currentEnvironment = import.meta.env.VITE_REACT_APP_ENV || "development";
 
 export default environment[currentEnvironment];
