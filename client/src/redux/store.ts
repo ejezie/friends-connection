@@ -1,5 +1,5 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
-import { user, theme } from "./slices";
+import { user, theme, modal } from "./slices";
 import apiSlice from "@/services/api/api";
 import {
   persistStore,
@@ -38,6 +38,7 @@ const persistConfig: any = {
 const rootReducer = combineReducers({
   user,
   theme,
+  modal,
   [apiSlice.reducerPath]: apiSlice.reducer,
 });
 
