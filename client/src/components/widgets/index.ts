@@ -1,3 +1,11 @@
 export { default as Button } from "./Button";
 export { default as Toggle } from "./Toggle";
+export { default as ProfileCard } from "./ProfileCard";
+export { default as FriendsCard } from "./FriendsCard";
+export { default as AddPost } from "./AddPost";
+export { default as Input } from "./Input";
+export { default as CommentForm } from "./CommentForm";
+export { default as ReplyCard } from "./ReplyCard";
+export { default as FriendRequst } from "./FriendRequst";
+export { default as Suggested } from "./Suggested";
 export * from "./parallaxs";

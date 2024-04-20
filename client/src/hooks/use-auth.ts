@@ -7,11 +7,11 @@ export const useAuth = () => {
 
   if (token) {
     return {
-      auth: true,
+      auth: false,
     };
   } else {
     return {
-      auth: false,
+      auth: true,
     };
   }
 };

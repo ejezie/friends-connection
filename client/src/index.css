@@ -1,6 +1,8 @@
 @import "tailwindcss/base";
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap");
 
 * {
   box-sizing: border-box;
@@ -23,15 +25,20 @@ a:hover {
 }
 
 :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: Poppins, Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
-  --bg: #fff;
+  --bg: #e3e3e3;
   --text: #595b64;
   --btn-color: #242424;
+  --card-bg: #fff;
+  --bg-input: #f7f7f7;
+  --shadow: rgba(0, 0, 0, 0.1) 0px 2px 4px 0px,
+    rgba(0, 0, 0, 0.06) 0px 2px 3px 0px;
+  --text-grad: linear-gradient(159deg, #b8b8b8 0%, #6a7891 81.65%);
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -40,9 +47,14 @@ a:hover {
 }
 
 body.dark-mode {
-  --bg: #242424;
+  --bg: #101113;
   --text: #fff;
   --btn-color: #444cf7;
+  --card-bg: #1b1e23;
+  --bg-input: #2d2d2d;
+  --shadow: rgba(0, 0, 0, 0.1) 1px 5px 7px 1px,
+    rgba(0, 0, 0, 0.06) 1px 6px 7px 1px;
+  --text-grad: linear-gradient(159deg, #6c7783 0%, #9191ac 81.65%);
 }
 
 /* reusables */
@@ -53,6 +65,10 @@ body.dark-mode {
 
 .bgcolor {
   background-color: var(--bg);
+}
+
+.bgcard {
+  background-color: var(--card-bg);
 }
 
 .btncolor {
@@ -93,6 +109,14 @@ body.dark-mode {
   display: inline-block;
   text-decoration: none;
   z-index: 1;
+  font-family: "Dancing Script", cursive;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.bginput {
+  background-color: var(--bg-input);
 }
 
 .dec:before {
@@ -130,4 +154,19 @@ body.dark-mode {
   transform: rotate(-1deg);
   opacity: 0.4;
   border-radius: 50%;
+}
+
+.shadow {
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 2px 4px 0px,
+    rgba(0, 0, 0, 0.06) 0px 2px 3px 0px;
+}
+.shadowin {
+  box-shadow: var(--shadow);
+}
+
+.gradtext {
+  background: var(--text-grad);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }

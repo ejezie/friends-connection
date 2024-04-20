@@ -6,7 +6,7 @@ import RouterConfig from "./routes/routesConfig";
 
 function App() {
   return (
-    <div className="bgcolor ">
+    <div className="bgcolor text">
       <PersistGate loading={null} persistor={persistor}>
         <Provider store={store}>
           <BrowserRouter>

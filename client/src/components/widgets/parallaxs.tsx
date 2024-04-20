@@ -100,7 +100,7 @@ export const AvatarParallaxOne = () => {
 
   return (
     <MouseParallax
-      strength={8}
+      strength={5}
       parallaxContainerRef={parallaxRefAvOne}
       enableOnTouchDevice={true}
       lerpEase={0.01}
@@ -196,7 +196,79 @@ export const AvatarParallaxThree = () => {
         <img
           loading="lazy"
           src={avatar3}
-          className="dec text-[] ml-[60vw] mt-[60vh] h-[40px] w-[40px]"
+          className="dec text-[] ml-[70vw] mt-[60vh] h-[40px] w-[40px]"
+        ></img>
+      </ScrollEfect>
+    </MouseParallax>
+  );
+};
+export const AvatarParallaxFive = () => {
+  const parallaxRefAvFour = useRef(null);
+
+  return (
+    <MouseParallax
+      strength={2}
+      parallaxContainerRef={parallaxRefAvFour}
+      enableOnTouchDevice={true}
+      lerpEase={0.01}
+      isAbsolutelyPositioned={true}
+      zIndex={-10}
+    >
+      <ScrollEfect
+        // className="font-[400] whitespace-nowrap xl:py-[15vh] py-[20vh]"
+        animationSpeed={0.1}
+        // shouldPause={intersection?.isIntersecting ? true : false}
+        inViewProperties={{
+          opacity: [0, 1],
+        }}
+        properties={{
+          x: ["0vw", "-10vw"],
+          y: ["0vh", "-4vh"],
+        }}
+        inViewDelay={1}
+        inViewTransitionTime={1.4}
+        transformOrigin="center center"
+      >
+        <img
+          loading="lazy"
+          src={avatar4}
+          className="dec text-[] ml-[50vw] mt-[80vh] h-[60px] w-[60px]"
+        ></img>
+      </ScrollEfect>
+    </MouseParallax>
+  );
+};
+export const AvatarParallaxSix = () => {
+  const parallaxRefAvFour = useRef(null);
+
+  return (
+    <MouseParallax
+      strength={30}
+      parallaxContainerRef={parallaxRefAvFour}
+      enableOnTouchDevice={true}
+      lerpEase={0.01}
+      isAbsolutelyPositioned={true}
+      zIndex={-10}
+    >
+      <ScrollEfect
+        // className="font-[400] whitespace-nowrap xl:py-[15vh] py-[20vh]"
+        animationSpeed={0.1}
+        // shouldPause={intersection?.isIntersecting ? true : false}
+        inViewProperties={{
+          opacity: [0, 1],
+        }}
+        properties={{
+          x: ["0vw", "-10vw"],
+          y: ["0vh", "-4vh"],
+        }}
+        inViewDelay={1}
+        inViewTransitionTime={1.4}
+        transformOrigin="center center"
+      >
+        <img
+          loading="lazy"
+          src={avatar2}
+          className="dec text-[] ml-[50vw] mt-[30vh] h-[30px] w-[30px]"
         ></img>
       </ScrollEfect>
     </MouseParallax>

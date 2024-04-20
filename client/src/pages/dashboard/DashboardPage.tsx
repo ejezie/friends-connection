@@ -1,7 +1,13 @@
+import { DashboardBlock } from "@/blocks";
+import { Feed } from "@/components";
 import React from "react";
 
 const DashboardPage = () => {
-  return <div>DashboardPage</div>;
+  return (
+    <>
+      <DashboardBlock component={Feed} />
+    </>
+  );
 };
 
 export default DashboardPage;

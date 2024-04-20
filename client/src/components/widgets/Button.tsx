@@ -15,7 +15,7 @@ const LoadingButton: React.FC<ButtonProps> = ({
 }): React.JSX.Element => {
   return (
     <button
-      className={`transition-colors bg-blue-600 min-w-[100px] text-white font-medium px-4 py-2 rounded-[20px] hover:bg-blue-500 disabled:bg-blue-400 ${className}`}
+      className={`transition-colors bg-blue-600 min-w-[100px] btncolor text-white font-medium px-4 py-2 rounded-[20px] hover:bg-blue-500 disabled:bg-blue-400 ${className}`}
       disabled={loading || props.disabled}
       {...props}
     >

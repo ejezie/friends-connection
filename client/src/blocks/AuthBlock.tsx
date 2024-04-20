@@ -1,5 +1,7 @@
 import {
   AuthHeader,
+  AvatarParallaxSix,
+  AvatarParallaxFive,
   AvatarParallaxFour,
   AvatarParallaxOne,
   AvatarParallaxThree,
@@ -31,9 +33,11 @@ const AuthBlock: React.FC = (): React.JSX.Element => {
           <AvatarParallaxTwo />
           <AvatarParallaxThree />
           <AvatarParallaxFour />
+          <AvatarParallaxFive />
+          <AvatarParallaxSix />
           <Container>
             <ScrollEfect
-              className="font-[900] whitespace-nowrap xl:py-[15vh] py-[20vh]"
+              className="font-[900] italic whitespace-nowrap xl:py-[18vh] py-[30vh]"
               animationSpeed={0.2}
               // shouldPause={intersection?.isIntersecting ? true : false}
               inViewProperties={{
@@ -41,17 +45,16 @@ const AuthBlock: React.FC = (): React.JSX.Element => {
                 y: [10, 0],
               }}
               properties={{
-                x: ["0vw", "-98vw"],
+                x: ["0vw", "-97.5vw"],
+                opacity: [0.7, 0.93],
               }}
               inViewDelay={0.5}
               inViewTransitionTime={1}
               transformOrigin="center center"
             >
-              <span
-                style={{ fontSize: width * 0.184 }}
-                className="bg-transparent "
-              >
-                CONNECT <span>FRIENDS</span>
+              <span style={{ fontSize: width * 0.155 }} className="gradtext ">
+                <span className="mr-[21vw] pl-[7vw]">CONNECT</span>{" "}
+                <span>FRIENDS</span>
               </span>
             </ScrollEfect>
           </Container>

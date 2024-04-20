@@ -1,17 +1,15 @@
-import { Button, Container, Toggle } from "@/components";
+import { Button, Toggle } from "@/components";
 import React from "react";
 
 const AuthHeader: React.FC = (): React.JSX.Element => {
   return (
-    <Container>
-      <div className="w-full py-4 end items-center">
-        <div className="center">
-          <Toggle />
-          <Button className="ml-3 btncolor">Sign Up</Button>
-          <Button className="ml-3 btncolor">Login</Button>
-        </div>
+    <div className="w-full py-4 end items-center px-[3vw]">
+      <div className="center">
+        <Toggle />
+        <Button className="ml-3">Sign Up</Button>
+        <Button className="ml-3">Login</Button>
       </div>
-    </Container>
+    </div>
   );
 };
 
