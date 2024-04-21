@@ -65,14 +65,16 @@ Before running the server run:
 npx tsc
 ```
 
-```
-npx tsc
-```
-
 Begin running the server using:
 
 ```
    pnpm start
+```
+
+or
+
+```
+node dist/index.js
 ```
 
 The server should now be live, and you will be informed about the port it is operating on via console messages.
@@ -92,7 +94,7 @@ Switch to the client directory by:
 To install all necessary dependencies, run:
 
 ```
-   npm install
+   pnpm install
 ```
 
 ### Start the Client
@@ -100,7 +102,7 @@ To install all necessary dependencies, run:
 Launch the client with:
 
 ```
-   npm start
+   pnpm start
 ```
 
 The client should now be actively running, and a message will display the URL and port number of the development server.
@@ -111,4 +113,18 @@ The client should now be actively running, and a message will display the URL an
 Visit http://localhost:<port-number> in your web browser, replacing `<port-number>` with the port listed in your `.env`.
 
 **Client Access:**
-Connect to the client via http://localhost:3000.
+Connect to the client via http://localhost:5173/ or port number shown on your console.
+
+### Application User Assumptions
+
+-Registration and Sign In: Users are expected to register and login to access certain features of the application. This includes having an email address and a user name, no password is required. On signing only a user name or email is required, on sign up user needs to provide a user name and email
+
+-Create Post: Users are expected to be able to create post to be viewed by other users on the platform.
+
+-Interaction with Posts: Users are expected to be able to create, view, like, and comment on posts. They might assume that posts are organized in a feed or a timeline, and that they can interact with posts by liking or commenting.
+
+-Friends: Users are assumed be able to view a list of suggested users and add as friends, a friend request is sent to the user who can either accept or reject.
+
+Profile Management: Users are expected to have a profile where they can view their information, view their see their friends.
+
+Notifications: Users are expected to receive notifications for various activities such as post update, or friend requests.
