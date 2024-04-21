@@ -50,7 +50,7 @@ const Suggested = () => {
             <Shimmer className="w-full h-[50px] mb-4 rounded-xl" />
             <Shimmer className="w-full h-[50px] mb-4 rounded-xl" />
           </div>
-        ) : !data?.user?.length ? (
+        ) : !data?.length ? (
           <Empty title="Nothing yet" />
         ) : (
           data?.user

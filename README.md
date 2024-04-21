@@ -63,6 +63,7 @@ Before running the server run:
 
 ```
 npx tsc
+node dist/index.js
 ```
 
 Begin running the server using:
