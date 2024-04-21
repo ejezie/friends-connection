@@ -1,4 +1,4 @@
-import "dotenv/config";
+import dotenv from "dotenv/config";
 import App from "./app";
 import validateEnv from "./utils/validateEnv";
 import UserController from "./resources/user/user.controller";

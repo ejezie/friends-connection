@@ -14,7 +14,7 @@ const DashboardBlock: React.FC<DashboardBlockProps> = ({
         <AuthHeader />
       </div>
       <Container>
-        <div className="w-full start gap-4 relative">
+        <div className="w-full start gap-4 relative min-h-[100vh]">
           <div className="w-[25%] fixed h-[88vh] overflow-y-scroll">
             <SideBar />
           </div>

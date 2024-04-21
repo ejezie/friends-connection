@@ -16,18 +16,17 @@
   scrollbar-width: none;
 }
 a {
-  font-weight: 500;
-  color: #646cff;
   text-decoration: inherit;
 }
 a:hover {
-  color: #535bf2;
+  color: #6d72cb;
 }
 
 :root {
   font-family: Poppins, Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
+  background-color: #e3e3e3;
 
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
@@ -169,4 +168,50 @@ body.dark-mode {
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+}
+
+.slide-up {
+  opacity: 0;
+  animation: slide-up 1500ms forwards, fade-in 500ms forwards;
+  animation-fill-mode: forwards;
+}
+
+.slide-down {
+  opacity: 0;
+  animation: slide-down 500ms forwards, fade-in 500ms forwards;
+  animation-fill-mode: forwards;
+}
+
+.fade-in {
+  animation: fade-in 500ms forwards;
+}
+
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes slide-up {
+  0% {
+    transform: translateY(15%);
+  }
+
+  100% {
+    transform: translateY(0%);
+  }
+}
+
+@keyframes slide-down {
+  0% {
+    transform: translateY(-15%);
+  }
+
+  100% {
+    transform: translateY(0%);
+  }
 }

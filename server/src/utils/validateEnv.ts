@@ -10,7 +10,7 @@ function validateEnv(): void {
     CLOUDINARY_NAME: str(),
     CLOUDINARY_KEY: str(),
     CLOUDINARY_SECRET: str(),
-    PORT: port({ default: 5000 }),
+    PORT: port({ default: 8000 }),
   });
 }
 

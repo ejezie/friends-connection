@@ -4,7 +4,7 @@ import customBaseQuery from "./customBaseQuery";
 const apiSlice = createApi({
   reducerPath: "api",
   baseQuery: customBaseQuery,
-  tagTypes: [],
+  tagTypes: ["Post", "Comment"],
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   endpoints: (_builder) => ({}),
   // refetchOnMountOrArgChange: true,

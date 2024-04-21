@@ -8,4 +8,5 @@ export { default as CommentForm } from "./CommentForm";
 export { default as ReplyCard } from "./ReplyCard";
 export { default as FriendRequst } from "./FriendRequst";
 export { default as Suggested } from "./Suggested";
+export { default as Empty } from "./Empty";
 export * from "./parallaxs";

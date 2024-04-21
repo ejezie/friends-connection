@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 // modal.slice.js
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
@@ -29,10 +30,7 @@ const modalSlice = createSlice({
   name: "modal",
   initialState,
   reducers: {
-    openModal: (
-      state: InitialStateType,
-      action: PayloadAction<InitialStateType>
-    ) => {
+    openModal: (state: InitialStateType, action: PayloadAction<any>) => {
       const modalObj = action.payload;
 
       // Check if it's a message modal

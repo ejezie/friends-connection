@@ -1,13 +1,15 @@
 import { AddPost, PostCard } from "@/components";
 import React from "react";
+import { useGetPostQuery } from "@/services";
 
 const Feed = () => {
+  const { data, isSuccess, isLoading } = useGetPostQuery("");
   return (
     <div>
       <AddPost />
-      {new Array(6).fill(2).map((_, idx) => (
+      {data?.data?.map((data: any, idx: number) => (
         <div key={idx}>
-          <PostCard />
+          <PostCard data={data} />
         </div>
       ))}
     </div>

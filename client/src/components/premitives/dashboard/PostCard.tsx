@@ -3,57 +3,57 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import moment from "moment";
 import { BiComment, BiLike, BiSolidLike } from "react-icons/bi";
-import { MdOutlineDeleteOutline } from "react-icons/md";
+// import { MdOutlineDeleteOutline } from "react-icons/md";
 import { CommentForm, ReplyCard } from "@/components";
-import { userprofile } from "@/assets";
+import { frame, userprofile } from "@/assets";
 import { useAppSelector } from "@/hooks";
 import Spinner from "@/components/widgets/Spinner";
+import { useGetPostCommentsQuery } from "@/services";
 
-const PostCard: React.FC = (): React.JSX.Element => {
+const PostCard: React.FC<any> = ({ data }): React.JSX.Element => {
   const [showAll, setShowAll] = useState(0);
   const [showReply, setShowReply] = useState(0);
-  const [comments, setComments] = useState<any>([]);
   const [replyComments, setReplyComments] = useState(0);
   const [showComments, setShowComments] = useState(0);
-  const post: any = {};
 
-  const user = useAppSelector((state) => state.user);
+  const user = useAppSelector((state) => state.user.user);
+  const { data: comments } = useGetPostCommentsQuery(data?._id);
 
   return (
     <div className="my-4 bg-primary p-4 rounded-[29px] shadow bgcard">
       <div className="flex gap-3 items-center mb-2">
-        <Link to={"/profile/" + post?.userId?._id}>
+        <Link to={"/profile/" + data?.userId?._id}>
           <img
-            src={post?.userId?.profileUrl ?? userprofile}
-            alt={post?.userId?.firstName}
+            src={userprofile}
+            alt={data?.userId?.name}
             className="w-14 h-14 object-cover rounded-full"
           />
         </Link>
 
         <div className="w-full flex justify-between">
           <div className="">
-            <Link to={"/profile/" + post?.userId?._id}>
+            <Link to={"/profile/" + data?.userId?._id}>
               <p className="font-medium text-lg text-ascent-1">
-                {post?.userId?.firstName} {post?.userId?.lastName}
+                {data?.userId?.name}
               </p>
             </Link>
-            <span className="text-ascent-2">{post?.userId?.location}</span>
+            <span className="text-ascent-2">{data?.userId?.location}</span>
           </div>
 
           <span className="text-ascent-2">
-            {moment(post?.createdAt ?? "2023-05-25").fromNow()}
+            {moment(data?.createdAt ?? "2024-06-25").fromNow()}
           </span>
         </div>
       </div>
 
       <div>
         <p className="text-ascent-2">
-          {/* {showAll === post?._id
-            ? post?.description
-            : post?.description.slice(0, 300)} */}
+          {showAll === data?._id
+            ? data?.description
+            : data?.description.slice(0, 300)}
 
-          {post?.description?.length > 301 &&
-            (showAll === post?._id ? (
+          {data?.description?.length > 301 &&
+            (showAll === data?._id ? (
               <span
                 className="text-blue ml-2 font-mediu cursor-pointer"
                 onClick={() => setShowAll(0)}
@@ -63,20 +63,21 @@ const PostCard: React.FC = (): React.JSX.Element => {
             ) : (
               <span
                 className="text-blue ml-2 font-medium cursor-pointer"
-                onClick={() => setShowAll(post?._id)}
+                onClick={() => setShowAll(data?._id)}
               >
                 Show More
               </span>
             ))}
         </p>
 
-        {post?.image && (
-          <img
-            src={post?.image}
-            alt="post image"
-            className="w-full mt-2 rounded-lg"
-          />
-        )}
+        {/* {data?.image && ( */}
+        <img
+          src={data?.image?.length ? data?.image : frame}
+          alt="data image"
+          className="w-full mt-2 rounded-lg"
+          loading="lazy"
+        />
+        {/* )} */}
       </div>
 
       <div
@@ -84,45 +85,45 @@ const PostCard: React.FC = (): React.JSX.Element => {
       text-base border-t border-[#66666645]"
       >
         <p className="flex gap-2 items-center text-base cursor-pointer">
-          {post?.likes?.includes(user?._id) ? (
+          {data?.likes?.includes(user?._id) ? (
             <BiSolidLike size={20} color="blue" />
           ) : (
             <BiLike size={20} />
           )}
-          {post?.likes?.length} Likes
+          {data?.likes?.length} Likes
         </p>
 
         <p
           className="flex gap-2 items-center text-base cursor-pointer"
           onClick={() => {
-            setShowComments(showComments === post._id ? null : post._id);
-            // getComments(post?._id);
+            setShowComments(showComments === data._id ? null : data._id);
+            // getComments(data?._id);
           }}
         >
           <BiComment size={20} />
-          {post?.comments?.length} Comments
+          {data?.comments?.length} Comments
         </p>
 
-        {user?._id === post?.userId?._id && (
+        {/* {user?._id === data?.userId?._id && (
           <div
             className="flex gap-1 items-center text-base text-ascent-1 cursor-pointer"
-            // onClick={() => deletePost(post?._id)}
+            // onClick={() => deletedata(data?._id)}
           >
             <MdOutlineDeleteOutline size={20} />
             <span>Delete</span>
           </div>
-        )}
+        )} */}
       </div>
 
       {/* COMMENTS */}
-      {showComments === post?._id && (
+      {showComments === data?._id && (
         <div className="w-full mt-4 border-t border-[#66666645] pt-4 ">
-          <CommentForm />
+          <CommentForm postId={data?._id} />
 
-          {comments ? (
+          {comments?.data?.length ? (
             <Spinner />
-          ) : comments?.length > 0 ? (
-            comments?.map((comment: any) => (
+          ) : comments?.data?.length > 0 ? (
+            comments?.data?.map((comment: any) => (
               <div className="w-full py-2" key={comment?._id}>
                 <div className="flex gap-3 items-center mb-1">
                   <Link to={"/profile/" + comment?.userId?._id}>
@@ -135,7 +136,7 @@ const PostCard: React.FC = (): React.JSX.Element => {
                   <div>
                     <Link to={"/profile/" + comment?.userId?._id}>
                       <p className="font-medium text-base text-ascent-1">
-                        {comment?.userId?.firstName} {comment?.userId?.lastName}
+                        {comment?.userId?.name}
                       </p>
                     </Link>
                     <span className="text-ascent-2 text-sm">
@@ -164,7 +165,9 @@ const PostCard: React.FC = (): React.JSX.Element => {
                     </span>
                   </div>
 
-                  {replyComments === comment?._id && <CommentForm />}
+                  {replyComments === comment?._id && (
+                    <CommentForm commentId={comment?._id} />
+                  )}
                 </div>
 
                 {/* REPLIES */}

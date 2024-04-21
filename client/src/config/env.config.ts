@@ -4,7 +4,7 @@ const environment: { [key: string]: { API_BASE_URL: string } } = {
     API_BASE_URL: "https://we-move.onrender.com",
   },
   development: {
-    API_BASE_URL: "",
+    API_BASE_URL: "http://localhost:8000",
   },
 };
 

@@ -1,11 +1,3 @@
-export const toggleClassname = (state: { [key: string]: boolean }) => {
-  const body = document.body;
-
-  state.isDarkMode
-    ? body.classList.add("dark-mode")
-    : body.classList.remove("dark-mode");
-};
-
 export const getScrollbarWidth = () => {
   // Create the div
   const scrollDiv = document.createElement("div");

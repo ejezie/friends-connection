@@ -16,7 +16,7 @@ const Blob = () => {
           />
         </clipPath>
       </defs>
-      <g clip-path="url(#a)">
+      <g clipPath="url(#a)">
         <path
           fill={`${isDarkMode ? "#444cf7" : "#F0F0F0"}`}
           d="M773.5 595q-47.5 95-121 224t-203 61Q320 812 182 739t-36-202q102-129 121.5-268T428 120q141-10 212 96.5t126 195q55 88.5 7.5 183.5Z"
