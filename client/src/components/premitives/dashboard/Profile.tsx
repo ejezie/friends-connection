@@ -92,7 +92,10 @@ const Profile = () => {
             )}
           </div>
         </div>
-        <div className="w-full start flex-wrap gap-10 mt-10">
+        <div className="mt-10 text-[20px] font-[600] w-full border-b mb-5">
+          Friends
+        </div>
+        <div className="w-full start flex-wrap gap-10 ">
           {data?.user?.friends?.map((item: ApiResponse, idx: number) => (
             <div key={(item?._id as string) + idx}>
               {isLoading ? (

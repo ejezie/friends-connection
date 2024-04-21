@@ -30,7 +30,10 @@ const customBaseQuery = async (
     api.dispatch(logoutUser());
     api.dispatch(closeComponentModal());
     api.dispatch(
-      openModal({ title: "Unauthourised", message: "Login to continue" })
+      openModal({
+        title: "You were loggedout, 401 ",
+        message: "Login to continue",
+      })
     );
   }
 

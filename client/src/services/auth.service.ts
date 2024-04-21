@@ -25,6 +25,7 @@ const authApiSlice = apiSlice.injectEndpoints({
           return;
         }
       },
+      invalidatesTags: ["Friend", "Notification", "Post", "User"],
     }),
 
     register: builder.mutation({
@@ -48,6 +49,7 @@ const authApiSlice = apiSlice.injectEndpoints({
           return;
         }
       },
+      invalidatesTags: ["Friend", "Notification", "Post", "User"],
     }),
 
     getAllUsers: builder.query({
@@ -55,6 +57,7 @@ const authApiSlice = apiSlice.injectEndpoints({
         url: USERS,
         method: "GET",
       }),
+      providesTags: ["User"],
     }),
 
     getMe: builder.query({
@@ -62,6 +65,7 @@ const authApiSlice = apiSlice.injectEndpoints({
         url: ME,
         method: "GET",
       }),
+      providesTags: ["User"],
     }),
 
     getNotFriend: builder.query({
@@ -69,6 +73,7 @@ const authApiSlice = apiSlice.injectEndpoints({
         url: NOT_FRIENDS,
         method: "GET",
       }),
+      providesTags: ["User"],
     }),
 
     getSingleUser: builder.query({

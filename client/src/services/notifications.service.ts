@@ -4,11 +4,11 @@ import { NOTIFICATIONS } from "./CONSTANTS";
 const notifcationApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     markNotification: builder.mutation({
-      query: (data) => ({
-        url: NOTIFICATIONS,
+      query: ({ data }) => ({
+        url: `${NOTIFICATIONS}/${data}`,
         method: "PATCH",
-        body: data,
       }),
+      invalidatesTags: ["Notification"],
     }),
 
     getNotifications: builder.query({
@@ -16,6 +16,7 @@ const notifcationApiSlice = apiSlice.injectEndpoints({
         url: NOTIFICATIONS,
         method: "GET",
       }),
+      providesTags: ["Notification"],
     }),
   }),
 });

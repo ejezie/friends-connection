@@ -23,7 +23,6 @@ class PostService {
       api_secret: CLOUDINARY_SECRET,
     });
     try {
-      console.log("hhh");
       const currentDate = new Date();
       const numericRepresentation = currentDate.getTime().toString();
       let imageUrl = "";

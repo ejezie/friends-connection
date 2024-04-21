@@ -9,6 +9,7 @@ const fiendsApiSlice = apiSlice.injectEndpoints({
         method: "POST",
         body: data,
       }),
+      invalidatesTags: ["Friend"],
     }),
 
     acceptReq: builder.mutation({
@@ -17,6 +18,7 @@ const fiendsApiSlice = apiSlice.injectEndpoints({
         method: "PATCH",
         body: data,
       }),
+      invalidatesTags: ["Friend", "User"],
     }),
 
     getAllReq: builder.query({
@@ -24,6 +26,7 @@ const fiendsApiSlice = apiSlice.injectEndpoints({
         url: ALL_REQUEST,
         method: "GET",
       }),
+      providesTags: ["Friend"],
     }),
   }),
 });

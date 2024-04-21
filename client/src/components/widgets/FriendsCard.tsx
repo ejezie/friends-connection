@@ -9,18 +9,25 @@ import { ApiResponse } from "@/types";
 
 const FriendsCard: React.FC = (): React.JSX.Element => {
   const [friends, setFriends] = useState<ApiResponse[]>([]);
-  const { data, isLoading } = useGetNotFriendQuery("");
-  const { data: users, isLoading: isLoadingAll } = useGetAllUsersQuery("");
+  const { data: notFriends, isLoading } = useGetNotFriendQuery("");
+  const { data: allUsers, isLoading: isLoadingAll } = useGetAllUsersQuery("", {
+    pollingInterval: 10000,
+  });
 
   useEffect(() => {
-    if (data?.data && users?.data) {
-      const friends = users?.data?.filter(
-        (user: ApiResponse) =>
-          !data?.find((item: ApiResponse) => item?._id === user?._id)
-      );
-      setFriends(friends);
+    if (allUsers?.user && notFriends?.user) {
+      const filteredFriends = allUsers.user.filter((user: ApiResponse) => {
+        return !notFriends.user.some(
+          (nonFriend: ApiResponse) => nonFriend._id === user._id
+        );
+      });
+      setFriends(filteredFriends);
+      console.log(friends);
     }
-  }, [data, users]);
+  }, [allUsers, notFriends]);
+
+  console.log(friends);
+
   return (
     <div>
       <div className="w-full bg-primary shadow rounded-[29px] px-6 py-5  bgcard">
@@ -37,23 +44,23 @@ const FriendsCard: React.FC = (): React.JSX.Element => {
           ) : !friends?.length ? (
             <Empty title="No friends Yet, add Some!" />
           ) : (
-            friends?.map((friend: ApiResponse) => (
+            friends.map((friend: ApiResponse) => (
               <Link
-                to={"/profile/" + friend?._id}
-                key={friend?._id as string}
+                to={"/profile/" + friend._id}
+                key={friend._id as string}
                 className="w-full flex gap-4 items-center cursor-pointer"
               >
                 <img
-                  src={(friend?.profileUrl as string) ?? userprofile}
-                  alt={friend?.name as string}
+                  src={(friend.profileUrl as string) ?? userprofile}
+                  alt={friend.name as string}
                   className="w-10 h-10 object-cover rounded-full"
                 />
                 <div className="flex-1">
                   <p className="text-base font-medium text-ascent-1 textwrp w-[120px]">
-                    {friend?.name as string}
+                    {friend.name as string}
                   </p>
                   <div className="text-sm text-ascent-2 textwrp w-[120px]">
-                    {friend?.email as string}
+                    {friend.email as string}
                   </div>
                 </div>
               </Link>

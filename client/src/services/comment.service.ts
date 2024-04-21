@@ -9,6 +9,7 @@ const commentApiSlice = apiSlice.injectEndpoints({
         method: "POST",
         body: data,
       }),
+      invalidatesTags: ["Comment"],
     }),
 
     replyComment: builder.mutation({
@@ -17,6 +18,7 @@ const commentApiSlice = apiSlice.injectEndpoints({
         method: "PATCH",
         body: data,
       }),
+      invalidatesTags: ["Comment"],
     }),
 
     getPostComments: builder.query({
@@ -24,6 +26,7 @@ const commentApiSlice = apiSlice.injectEndpoints({
         url: `${GET_POST_COMMENT}/${id}`,
         method: "GET",
       }),
+      providesTags: ["Comment"],
     }),
   }),
 });

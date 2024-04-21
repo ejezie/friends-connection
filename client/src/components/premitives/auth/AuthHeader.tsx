@@ -21,7 +21,7 @@ const AuthHeader: React.FC<AuthHeaderProps> = ({
   const dispatch = useAppDispatch();
 
   const { auth } = useAuth();
-  const { data } = useGetNotificationsQuery("");
+  const { data } = useGetNotificationsQuery("", { skip: !auth });
 
   return (
     <div className="w-full text py-4 between items-center px-[3vw]">

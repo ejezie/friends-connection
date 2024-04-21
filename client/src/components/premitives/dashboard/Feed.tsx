@@ -5,7 +5,8 @@ import { useGetPostQuery } from "@/services";
 import { frame } from "@/assets";
 
 const Feed = () => {
-  const { data, isLoading } = useGetPostQuery("");
+  // I ran out of time to implement sockets
+  const { data, isLoading } = useGetPostQuery("", { pollingInterval: 10000 });
   return (
     <div>
       <AddPost />
@@ -22,7 +23,7 @@ const Feed = () => {
           ))}
         </div>
       ) : !data?.data?.length ? (
-        <div className="shadow mt-4 p-3 bgcard">
+        <div className="shadow mt-4 p-3 bgcard rounded-3xl">
           <img src={frame} alt="frame" />
           <h1 className="w-full text-center text-xl font-[700]">No post Yet</h1>
         </div>

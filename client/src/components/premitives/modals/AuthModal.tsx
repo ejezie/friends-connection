@@ -63,7 +63,7 @@ const AuthModal: React.FC<AuthModalProp> = ({ data }): React.JSX.Element => {
 
       <Form
         onSubmit={onSubmit}
-        validate={validate}
+        validate={data !== "login" ? validate : undefined}
         render={({ handleSubmit, valid }) => (
           <form className="w-full" onSubmit={handleSubmit}>
             {data !== "login" && (

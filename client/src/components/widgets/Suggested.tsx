@@ -3,7 +3,7 @@ import { BsPersonFillAdd } from "react-icons/bs";
 import { useGetNotFriendQuery, useSendFriendReqMutation } from "@/services";
 import Empty from "./Empty";
 import { openModal } from "@/redux/slices/modal.slice";
-import { useAppDispatch } from "@/hooks";
+import { useAppDispatch, useAppSelector } from "@/hooks";
 import { useEffect, useState } from "react";
 import formatErrorResponse from "@/utils/formatErrorResponse";
 import { Button, Shimmer } from ".";
@@ -13,11 +13,15 @@ import { ApiResponse } from "@/types";
 const Suggested = () => {
   const [id, setId] = useState("");
 
-  const { data, isLoading: isLoadingNot } = useGetNotFriendQuery("");
+  // I ran out of time to implement sockets
+  const { data, isLoading: isLoadingNot } = useGetNotFriendQuery("", {
+    pollingInterval: 10000,
+  });
   const [send, { isSuccess, isError, error, isLoading }] =
     useSendFriendReqMutation();
 
   const dispatch = useAppDispatch();
+  const user = useAppSelector((state) => state.user.user);
 
   useEffect(() => {
     isError &&
@@ -49,44 +53,46 @@ const Suggested = () => {
         ) : !data?.user?.length ? (
           <Empty title="Nothing yet" />
         ) : (
-          data?.user?.map((data: ApiResponse) => (
-            <div
-              className="flex items-center justify-between"
-              key={data._id as string}
-            >
-              <Link
-                to={"/profile/" + data?._id}
-                key={data?._id as string}
-                className="w-full flex gap-4 items-center cursor-pointer"
+          data?.user
+            ?.filter((item: ApiResponse) => user?._id !== item?._id)
+            .map((data: ApiResponse) => (
+              <div
+                className="flex items-center justify-between"
+                key={data._id as string}
               >
-                <div className="flex-1 ">
-                  <p className="text-base font-medium text-ascent-1 textwrp w-[120px]">
-                    {data?.name as string}
-                  </p>
-                  <div className="text-sm text-ascent-2 w-[150px] textwrp">
-                    {data?.email as string}
-                  </div>
-                </div>
-              </Link>
-
-              <div className="flex gap-1">
-                <Button
-                  className="text-sm !w-10 text-white p-1 rounded-sm"
-                  loading={isLoading && id === data?._id}
-                  onClick={() => {
-                    setId(data?._id as string);
-                    rtkMutation(send, { requestTo: data?._id });
-                  }}
+                <Link
+                  to={"/profile/" + data?._id}
+                  key={data?._id as string}
+                  className="w-full flex gap-4 items-center cursor-pointer"
                 >
-                  {isSuccess && id === data?._id ? (
-                    "sent"
-                  ) : (
-                    <BsPersonFillAdd size={20} className="" />
-                  )}
-                </Button>
+                  <div className="flex-1 ">
+                    <p className="text-base font-medium text-ascent-1 textwrp w-[120px]">
+                      {data?.name as string}
+                    </p>
+                    <div className="text-sm text-ascent-2 w-[150px] textwrp">
+                      {data?.email as string}
+                    </div>
+                  </div>
+                </Link>
+
+                <div className="flex gap-1">
+                  <Button
+                    className="text-sm !w-10 text-white p-1 rounded-sm"
+                    loading={isLoading && id === data?._id}
+                    onClick={() => {
+                      setId(data?._id as string);
+                      rtkMutation(send, { requestTo: data?._id });
+                    }}
+                  >
+                    {isSuccess && id === data?._id ? (
+                      "sent"
+                    ) : (
+                      <BsPersonFillAdd size={20} className="" />
+                    )}
+                  </Button>
+                </div>
               </div>
-            </div>
-          ))
+            ))
         )}
       </div>
     </div>

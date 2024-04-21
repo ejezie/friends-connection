@@ -4,7 +4,6 @@ import { Button, Empty, Shimmer } from ".";
 import { Link } from "react-router-dom";
 import { userprofile } from "@/assets";
 import { useGetAllReqQuery, useAcceptReqMutation } from "@/services";
-import { ApiResponse } from "@/types";
 import { rtkMutation } from "@/utils";
 import Spinner from "./Spinner";
 import { openModal } from "@/redux/slices/modal.slice";
@@ -12,7 +11,8 @@ import formatErrorResponse from "@/utils/formatErrorResponse";
 import { useAppDispatch } from "@/hooks";
 
 const FriendRequst = () => {
-  const { data, isLoading } = useGetAllReqQuery("");
+  // I ran out of time to implement sockets
+  const { data, isLoading } = useGetAllReqQuery("", { pollingInterval: 10000 });
   const [
     handleReq,
     { data: datareq, isSuccess, isError, error, isLoading: isLoadingReq },
@@ -53,23 +53,23 @@ const FriendRequst = () => {
         ) : !data?.data?.length ? (
           <Empty title="No friend requests at the moment" />
         ) : (
-          data?.data?.map((req: ApiResponse, idx: number) => (
-            <div key={idx} className="flex items-center justify-between">
+          data?.data?.map((req: any, idx: number) => (
+            <div key={idx} className="start justify-between flex-col">
               <Link
                 to={"/profile/" + req._id}
-                className="w-full flex gap-4 items-center cursor-pointer"
+                className="w-full flex gap-1 items-center cursor-pointer m-3"
               >
                 <img
-                  src={(req?.profileUrl as string) ?? userprofile}
-                  alt={(req?.name as string) || "Joy"}
+                  src={(req?.requestFrom?.profileUrl as string) ?? userprofile}
+                  alt={(req?.requestFrom?.name as string) || "Joy"}
                   className="w-10 h-10 object-cover rounded-full"
                 />
                 <div className="flex-1">
-                  <p className="text-base font-medium text-ascent-1 textwrp w-[120px]">
-                    {req?.name as string}
+                  <p className="text-base font-medium text-ascent-1 textwrp w-[120px] xl:w-[100%]">
+                    {req?.requestFrom?.name as any}
                   </p>
-                  <div className="text-sm text-ascent-2 textwrp w-[120px]">
-                    {req?.email as string}
+                  <div className="text-sm text-ascent-2 textwrp w-[120px] xl:w-[100%]">
+                    {req?.requestFrom?.email as string}
                   </div>
                 </div>
               </Link>

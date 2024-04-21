@@ -15,6 +15,13 @@ import { encryptTransform } from "redux-persist-transform-encrypt";
 import storage from "redux-persist/lib/storage";
 import hardSet from "redux-persist/es/stateReconciler/hardSet";
 
+const rootReducer = combineReducers({
+  user,
+  theme,
+  modal,
+  [apiSlice.reducerPath]: apiSlice.reducer,
+});
+
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const persistConfig: any = {
   key: "root",
@@ -32,15 +39,8 @@ const persistConfig: any = {
     }),
   ],
   stateReconciler: hardSet,
-  blacklist: [apiSlice.reducerPath],
+  blacklist: apiSlice.reducerPath,
 };
-
-const rootReducer = combineReducers({
-  user,
-  theme,
-  modal,
-  [apiSlice.reducerPath]: apiSlice.reducer,
-});
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 

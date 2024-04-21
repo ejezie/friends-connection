@@ -160,7 +160,9 @@ const PostCard: React.FC<any> = ({ data }): React.JSX.Element => {
                 </div>
 
                 <div className="ml-12">
-                  <p className="text-ascent-2">{comment?.comment}</p>
+                  <p className="text-ascent-2 text-[12px] lg:text-[14px]">
+                    {comment?.comment}
+                  </p>
 
                   <div className="mt-2 flex gap-6">
                     {isLoading ? (
@@ -213,7 +215,7 @@ const PostCard: React.FC<any> = ({ data }): React.JSX.Element => {
 
                   {showReply === comment?.replies?._id &&
                     comment?.replies?.map((reply: any) => (
-                      <ReplyCard reply={reply} user={user!} key={reply?._id} />
+                      <ReplyCard reply={reply} key={reply?._id} />
                     ))}
                 </div>
               </div>
