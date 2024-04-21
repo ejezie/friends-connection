@@ -73,7 +73,7 @@ const authApiSlice = apiSlice.injectEndpoints({
 
     getSingleUser: builder.query({
       query: (id) => ({
-        url: `{${USERS}}/${id}`,
+        url: `${USERS}/${id}`,
         method: "GET",
       }),
     }),

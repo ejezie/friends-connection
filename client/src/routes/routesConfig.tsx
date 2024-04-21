@@ -1,6 +1,6 @@
 import { Routes, Route } from "react-router-dom";
-import { LoginPage, DashboardPage } from "@/pages";
-import { LOGIN, DASHBOARD } from "./CONSTANTS";
+import { LoginPage, DashboardPage, ProfilePage, ErrorPage } from "@/pages";
+import { LOGIN, DASHBOARD, PROFILE } from "./CONSTANTS";
 import { useAppDispatch, useAppSelector } from "@/hooks";
 import { getDefaultTheme } from "@/redux/slices/theme.slice";
 import { useEffect } from "react";
@@ -35,10 +35,11 @@ const RouterConfig = () => {
         <Route path="/" element={<ProtectedRoute />}>
           {/* Protected routes should be placed in here */}
           <Route path={DASHBOARD} element={<DashboardPage />} />
+          <Route path={PROFILE} element={<ProfilePage />} />
         </Route>
 
         {/* 404 page */}
-        {/* <Route path="*" element={<ErrorPage />} /> */}
+        <Route path="*" element={<ErrorPage />} />
       </Routes>
     </div>
   );

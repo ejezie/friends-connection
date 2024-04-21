@@ -1,3 +1,6 @@
-import { store } from "@/redux/store";
+import store from "@/redux/store";
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
+export type ApiResponse = {
+  [key in string]: string | number | [] | object | unknown;
+};

@@ -23,7 +23,7 @@ const AddPost: React.FC = (): React.JSX.Element => {
   }) => {
     if (!values.description) {
       dispatch(
-        openModal({ message: "Nothing on your mind?, type something please?" })
+        openModal({ message: "Nothing on your mind?, type something?" })
       );
       return;
     }

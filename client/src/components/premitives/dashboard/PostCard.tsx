@@ -8,7 +8,8 @@ import { CommentForm, ReplyCard } from "@/components";
 import { frame, userprofile } from "@/assets";
 import { useAppSelector } from "@/hooks";
 import Spinner from "@/components/widgets/Spinner";
-import { useGetPostCommentsQuery } from "@/services";
+import { useGetPostCommentsQuery, useLikePostMutation } from "@/services";
+import { rtkMutation } from "@/utils";
 
 const PostCard: React.FC<any> = ({ data }): React.JSX.Element => {
   const [showAll, setShowAll] = useState(0);
@@ -18,6 +19,7 @@ const PostCard: React.FC<any> = ({ data }): React.JSX.Element => {
 
   const user = useAppSelector((state) => state.user.user);
   const { data: comments } = useGetPostCommentsQuery(data?._id);
+  const [likePost, { isLoading }] = useLikePostMutation();
 
   return (
     <div className="my-4 bg-primary p-4 rounded-[29px] shadow bgcard">
@@ -82,16 +84,25 @@ const PostCard: React.FC<any> = ({ data }): React.JSX.Element => {
 
       <div
         className="mt-4 flex justify-between items-center px-3 py-2 text-ascent-2
-      text-base border-t border-[#66666645]"
+      text-base "
       >
-        <p className="flex gap-2 items-center text-base cursor-pointer">
-          {data?.likes?.includes(user?._id) ? (
-            <BiSolidLike size={20} color="blue" />
-          ) : (
-            <BiLike size={20} />
-          )}
-          {data?.likes?.length} Likes
-        </p>
+        {isLoading ? (
+          <div className="flex gap-2 items-center">
+            <Spinner />
+          </div>
+        ) : (
+          <p
+            className="flex gap-2 items-center text-base cursor-pointer"
+            onClick={() => rtkMutation(likePost, data?._id)}
+          >
+            {data?.likes?.includes(user?._id) ? (
+              <BiSolidLike size={20} color="blue" />
+            ) : (
+              <BiLike size={20} />
+            )}
+            {data?.likes?.length} Likes
+          </p>
+        )}
 
         <p
           className="flex gap-2 items-center text-base cursor-pointer"
@@ -117,19 +128,22 @@ const PostCard: React.FC<any> = ({ data }): React.JSX.Element => {
 
       {/* COMMENTS */}
       {showComments === data?._id && (
-        <div className="w-full mt-4 border-t border-[#66666645] pt-4 ">
+        <div className="w-full mt-4  ">
           <CommentForm postId={data?._id} />
 
-          {comments?.data?.length ? (
+          {!comments?.data?.length ? (
             <Spinner />
           ) : comments?.data?.length > 0 ? (
             comments?.data?.map((comment: any) => (
-              <div className="w-full py-2" key={comment?._id}>
+              <div
+                className="w-full py-2 shadow rounded-[29px] p-8 mt-5"
+                key={comment?._id}
+              >
                 <div className="flex gap-3 items-center mb-1">
                   <Link to={"/profile/" + comment?.userId?._id}>
                     <img
                       src={comment?.userId?.profileUrl ?? userprofile}
-                      alt={comment?.userId?.firstName}
+                      alt={comment?.userId?.name}
                       className="w-10 h-10 rounded-full object-cover"
                     />
                   </Link>
@@ -149,14 +163,23 @@ const PostCard: React.FC<any> = ({ data }): React.JSX.Element => {
                   <p className="text-ascent-2">{comment?.comment}</p>
 
                   <div className="mt-2 flex gap-6">
-                    <p className="flex gap-2 items-center text-base text-ascent-2 cursor-pointer">
-                      {comment?.likes?.includes(user?._id) ? (
-                        <BiSolidLike size={20} color="blue" />
-                      ) : (
-                        <BiLike size={20} />
-                      )}
-                      {comment?.likes?.length} Likes
-                    </p>
+                    {isLoading ? (
+                      <div className="flex gap-2 items-center">
+                        <Spinner />
+                      </div>
+                    ) : (
+                      <p
+                        className="flex gap-2 items-center text-base text-ascent-2 cursor-pointer"
+                        onClick={() => rtkMutation(likePost, comment?._id)}
+                      >
+                        {comment?.likes?.includes(user?._id) ? (
+                          <BiSolidLike size={20} color="blue" />
+                        ) : (
+                          <BiLike size={20} />
+                        )}
+                        {comment?.likes?.length} Likes
+                      </p>
+                    )}
                     <span
                       className="text-blue cursor-pointer"
                       onClick={() => setReplyComments(comment?._id)}
@@ -190,7 +213,7 @@ const PostCard: React.FC<any> = ({ data }): React.JSX.Element => {
 
                   {showReply === comment?.replies?._id &&
                     comment?.replies?.map((reply: any) => (
-                      <ReplyCard reply={reply} user={user} key={reply?._id} />
+                      <ReplyCard reply={reply} user={user!} key={reply?._id} />
                     ))}
                 </div>
               </div>

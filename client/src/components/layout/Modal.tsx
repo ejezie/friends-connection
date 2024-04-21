@@ -1,7 +1,5 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import React from "react";
 // import { failed, success } from "assets/images";
-import { Button, AuthModal } from "@/components";
+import { Button, AuthModal, Notification } from "@/components";
 import { useNavigate } from "react-router-dom";
 // import { useDispatch } from "react-redux";
 import { closeModal } from "@/redux/slices/modal.slice";
@@ -10,15 +8,15 @@ import { MdOutlineCancel } from "react-icons/md";
 import { GiCheckMark } from "react-icons/gi";
 
 interface ModalTYpe {
-  title: string | undefined;
-  message: string | undefined;
-  isOpen: boolean | undefined;
-  isOpenComponent: boolean | undefined;
-  promptMessage: string | undefined;
-  promptLink: string | undefined;
-  component: string | undefined;
-  success: boolean | undefined;
-  data: { [key in string]: number | string | object } | string;
+  title: string | null;
+  message: string | null;
+  isOpen: boolean | null;
+  isOpenComponent: boolean | null;
+  promptMessage: string | null;
+  promptLink: string | null;
+  component: string | null;
+  success: boolean | null;
+  data: unknown;
 }
 
 const Modal = () => {
@@ -49,9 +47,9 @@ const Modal = () => {
 
   // const modalToDisplay:string = component || "None";
 
-  const ComponentItem: any = {
+  const ComponentItem: JSX.Element | undefined = {
     AuthModal: <AuthModal data={data as string} />,
-    // UpdateProfile: <UpdateProfile />,
+    Notification: <Notification />,
   }[component as string];
 
   return (

@@ -2,6 +2,7 @@ import { fetchBaseQuery, BaseQueryApi } from "@reduxjs/toolkit/query/react";
 import environmentConfig from "@/config/env.config";
 import { RootState } from "@/types";
 import { logoutUser } from "@/redux/slices/user.slice";
+import { closeComponentModal, openModal } from "@/redux/slices/modal.slice";
 // import { openModal, closeComponentModal } from "@/redux/slices/modal.slice";
 
 const baseQuery = fetchBaseQuery({
@@ -17,7 +18,6 @@ const baseQuery = fetchBaseQuery({
     return headers;
   },
 });
-
 const customBaseQuery = async (
   args: Parameters<typeof baseQuery>[0],
   api: BaseQueryApi,
@@ -28,6 +28,10 @@ const customBaseQuery = async (
 
   if (result.error && result.error.status === 401) {
     api.dispatch(logoutUser());
+    api.dispatch(closeComponentModal());
+    api.dispatch(
+      openModal({ title: "Unauthourised", message: "Login to continue" })
+    );
   }
 
   return result;

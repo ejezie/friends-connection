@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { userprofile } from "@/assets";
-import { useAppDispatch, useAppSelector } from "@/hooks";
+import { useAppDispatch } from "@/hooks";
 import { Form, Field } from "react-final-form";
 import { Button, Input } from ".";
 import { useMakeCommentMutation, useReplyCommentMutation } from "@/services";
@@ -35,7 +35,7 @@ const CommentForm: React.FC<CommentFormProps> = ({
   const onSubmit = async (values: {
     [key in string]: string | number;
   }) => {
-    if (commentId) {
+    if (postId) {
       values.postId = postId as string;
     } else {
       values.commentId = commentId as string;
@@ -74,7 +74,7 @@ const CommentForm: React.FC<CommentFormProps> = ({
   ]);
 
   return (
-    <div className="w-full border-b">
+    <div className="w-full">
       <Form
         onSubmit={onSubmit}
         render={({ handleSubmit, form }) => (

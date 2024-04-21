@@ -1,39 +1,127 @@
-import React, { useState } from "react";
 import { useParams } from "react-router-dom";
-import { FPostCard } from "@/components";
-import { useAppDispatch, useAppSelector } from "@/hooks";
+import { Shimmer } from "@/components";
 import { useGetSingleUserQuery } from "@/services";
-import Spinner from "@/components/widgets/Spinner";
+import { friend, team, userprofile } from "@/assets";
+import moment from "moment";
+import { ApiResponse } from "@/types";
 
 const Profile = () => {
   const { id } = useParams();
-  const { data, isLoading } = useGetSingleUserQuery("");
-  const dispatch = useAppDispatch();
-  const user = useAppSelector((state) => state.user.user);
+  console.log(id);
+  const { data, isLoading } = useGetSingleUserQuery(id);
 
   return (
     <>
-      <div className="home w-full px-0 lg:px-10 pb-20 2xl:px-40 bg-bgColor lg:rounded-lg h-screen overflow-hidden">
-        <div className="w-full flex gap-2 lg:gap-4 md:pl-4 pt-5 pb-10 h-full">
-          <div className=" flex-1 h-full bg-orimary px-4 flex flex-col gap-6 overflow-y-auto">
-            {isLoading ? (
-              <Spinner />
-            ) : posts?.length > 0 ? (
-              posts?.map((post) => (
-                <PostCard
-                  post={post}
-                  key={post?._id}
-                  user={user}
-                  deletePost={handleDelete}
-                  likePost={handleLikePost}
+      <div className="w-full bg-primary flex flex-col items-center shadow mb-4  rounded-[29px] p-10 bgcard ">
+        <div className="shadow w-full p-5 rounded-xl">
+          <div className="w-full flex items-center justify-between pb-5  ">
+            <div className="flex gap-2 w-full">
+              {isLoading ? (
+                <div className="w-[30%]">
+                  <Shimmer className="h-[50px] rounded-full w-[50px] mr-2" />
+                </div>
+              ) : (
+                <img
+                  src={userprofile}
+                  alt={"profile"}
+                  className="w-14 h-14 object-cover rounded-full"
                 />
-              ))
-            ) : (
-              <div className="flex w-full h-full items-center justify-center">
-                <p className="text-lg text-ascent-2">No Post Available</p>
+              )}
+
+              {isLoading ? (
+                <div className="w-full">
+                  <Shimmer className="h-5 mb-2" />
+                  <Shimmer className="h-5" />
+                </div>
+              ) : (
+                <div className="flex flex-col justify-center">
+                  <p className="text-lg font-medium text-ascent-1">
+                    {data?.user?.name}
+                  </p>
+                  <span className="cardtext">{data?.user?.email}</span>
+                </div>
+              )}
+            </div>
+          </div>
+          {isLoading ? (
+            <div className="w-full">
+              <Shimmer className="h-[90px] rounded-xl" />
+            </div>
+          ) : (
+            <div className="w-full flex flex-col gap-2 py-4 ">
+              <div className="center gap-2">
+                <span className="lg:text-[20px] text-[14px] font-dancing-script">
+                  {"Member"}
+                </span>
+                <img src={team} alt="team" className="w-[20%] h-[20%]" />
+                <span className="lg:text-[20px] text-[15px] font-dancing-script">
+                  {"Badge"}
+                </span>
               </div>
+            </div>
+          )}
+
+          <div className="w-full flex flex-col gap-2 my-4 p-4 ">
+            <div className="flex items-center">
+              <img
+                src={friend}
+                alt="friends"
+                className=" object-contain mb-4"
+              />
+              {/* <p className="text-xl text-ascent-1 font-semibold">Friends</p> */}
+            </div>
+            {isLoading ? (
+              <div className="w-full">
+                <Shimmer className="h-[90px] rounded-xl" />
+              </div>
+            ) : (
+              <>
+                <div className="flex items-center justify-between">
+                  <span className="cardtext">Total friends</span>
+                  <span className="cardtext text-lg">
+                    {data?.user?.friends?.length}
+                  </span>
+                </div>
+                <div className="flex items-center justify-between">
+                  <span className="cardtext">Joined</span>
+                  <span className="cardtext">
+                    {moment(data?.user?.createdAt).fromNow()}
+                  </span>
+                </div>
+              </>
             )}
           </div>
+        </div>
+        <div className="w-full start flex-wrap gap-10 mt-10">
+          {data?.user?.friends?.map((item: ApiResponse, idx: number) => (
+            <div key={(item?._id as string) + idx}>
+              {isLoading ? (
+                <div className="w-[30%]">
+                  <Shimmer className="h-[50px] rounded-full w-[50px] mr-2" />
+                </div>
+              ) : (
+                <img
+                  src={userprofile}
+                  alt={"profile"}
+                  className="w-14 h-14 object-cover rounded-full"
+                />
+              )}
+
+              {isLoading ? (
+                <div className="w-full">
+                  <Shimmer className="h-5 mb-2" />
+                  <Shimmer className="h-5" />
+                </div>
+              ) : (
+                <div className="flex flex-col justify-center">
+                  <p className="text-lg font-medium text-ascent-1">
+                    {item?.name as string}
+                  </p>
+                  <span className="cardtext">{item?.email as string}</span>
+                </div>
+              )}
+            </div>
+          ))}
         </div>
       </div>
     </>

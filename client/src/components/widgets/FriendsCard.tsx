@@ -1,40 +1,64 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { userprofile } from "@/assets";
+import { useGetAllUsersQuery, useGetNotFriendQuery } from "@/services";
+import Shimmer from "./Shimmer";
+import Empty from "./Empty";
+import { ApiResponse } from "@/types";
 
 const FriendsCard: React.FC = (): React.JSX.Element => {
-  const friends: any = [{ _id: "32", firstName: "John", lastName: "Doe" }];
+  const [friends, setFriends] = useState<ApiResponse[]>([]);
+  const { data, isLoading } = useGetNotFriendQuery("");
+  const { data: users, isLoading: isLoadingAll } = useGetAllUsersQuery("");
+
+  useEffect(() => {
+    if (data?.data && users?.data) {
+      const friends = users?.data?.filter(
+        (user: ApiResponse) =>
+          !data?.find((item: ApiResponse) => item?._id === user?._id)
+      );
+      setFriends(friends);
+    }
+  }, [data, users]);
   return (
     <div>
       <div className="w-full bg-primary shadow rounded-[29px] px-6 py-5  bgcard">
         <div className="flex items-center justify-between text-ascent-1 pb-2 border-b ">
           <span> Friends</span>
-          <span>{friends?.length || 5}</span>
+          <span>{friends?.length || 0}</span>
         </div>
 
         <div className="w-full flex flex-col gap-4 pt-4">
-          {friends?.map((friend: any) => (
-            <Link
-              to={"/profile/" + friend?._id}
-              key={friend?._id}
-              className="w-full flex gap-4 items-center cursor-pointer"
-            >
-              <img
-                src={friend?.profileUrl ?? userprofile}
-                alt={friend?.firstName}
-                className="w-10 h-10 object-cover rounded-full"
-              />
-              <div className="flex-1">
-                <p className="text-base font-medium text-ascent-1">
-                  {friend?.firstName} {friend?.lastName}
-                </p>
-                <span className="text-sm text-ascent-2">
-                  {friend?.profession ?? "No Profession"}
-                </span>
-              </div>
-            </Link>
-          ))}
+          {isLoading || isLoadingAll ? (
+            <div className="w-full">
+              <Shimmer className="h-[100px] rounded-lg" />
+            </div>
+          ) : !friends?.length ? (
+            <Empty title="No friends Yet, add Some!" />
+          ) : (
+            friends?.map((friend: ApiResponse) => (
+              <Link
+                to={"/profile/" + friend?._id}
+                key={friend?._id as string}
+                className="w-full flex gap-4 items-center cursor-pointer"
+              >
+                <img
+                  src={(friend?.profileUrl as string) ?? userprofile}
+                  alt={friend?.name as string}
+                  className="w-10 h-10 object-cover rounded-full"
+                />
+                <div className="flex-1">
+                  <p className="text-base font-medium text-ascent-1 textwrp w-[120px]">
+                    {friend?.name as string}
+                  </p>
+                  <div className="text-sm text-ascent-2 textwrp w-[120px]">
+                    {friend?.email as string}
+                  </div>
+                </div>
+              </Link>
+            ))
+          )}
         </div>
       </div>
     </div>

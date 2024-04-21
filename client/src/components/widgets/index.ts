@@ -9,4 +9,5 @@ export { default as ReplyCard } from "./ReplyCard";
 export { default as FriendRequst } from "./FriendRequst";
 export { default as Suggested } from "./Suggested";
 export { default as Empty } from "./Empty";
+export { default as Shimmer } from "./Shimmer";
 export * from "./parallaxs";
