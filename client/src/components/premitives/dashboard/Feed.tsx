@@ -1,12 +1,14 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { AddPost, PostCard, Shimmer } from "@/components";
 import React from "react";
-import { useGetPostQuery } from "@/services";
+import { useGetAllPostsQuery } from "@/services";
 import { frame } from "@/assets";
 
 const Feed = () => {
   // I ran out of time to implement sockets
-  const { data, isLoading } = useGetPostQuery("", { pollingInterval: 10000 });
+  const { data, isLoading } = useGetAllPostsQuery("", {
+    pollingInterval: 10000,
+  });
   return (
     <div>
       <AddPost />

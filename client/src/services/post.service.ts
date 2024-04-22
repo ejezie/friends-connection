@@ -17,6 +17,7 @@ const postApiSlice = apiSlice.injectEndpoints({
         url: `${LIKE_POST}/${id}`,
         method: "PATCH",
       }),
+      invalidatesTags: ["Post"],
     }),
 
     getPost: builder.query({
