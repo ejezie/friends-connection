@@ -165,7 +165,7 @@ const PostCard: React.FC<any> = ({ data }): React.JSX.Element => {
                   </p>
 
                   <div className="mt-2 flex gap-6">
-                    {isLoading ? (
+                    {/* {isLoading ? (
                       <div className="flex gap-2 items-center">
                         <Spinner />
                       </div>
@@ -181,7 +181,7 @@ const PostCard: React.FC<any> = ({ data }): React.JSX.Element => {
                         )}
                         {comment?.likes?.length} Likes
                       </p>
-                    )}
+                    )} */}
                     <span
                       className="text-blue cursor-pointer"
                       onClick={() => setReplyComments(comment?._id)}
