@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom";
-import { Shimmer } from "@/components";
-import { useGetSingleUserQuery } from "@/services";
-import { friend, team, userprofile } from "@/assets";
+import { PostCard, Shimmer } from "@/components";
+import { useGetSingleUserQuery, useGetUserPostQuery } from "@/services";
+import { frame, friend, team, userprofile } from "@/assets";
 import moment from "moment";
 import { ApiResponse } from "@/types";
 
@@ -9,6 +9,7 @@ const Profile = () => {
   const { id } = useParams();
   console.log(id);
   const { data, isLoading } = useGetSingleUserQuery(id);
+  const { data: post, isLoading: loadingPost } = useGetUserPostQuery(id);
 
   return (
     <>
@@ -126,6 +127,35 @@ const Profile = () => {
             </div>
           ))}
         </div>
+        {loadingPost ? (
+          <div className="w-full shadow mt-4 bgcard p-5 rounded-[29px] ">
+            {[1, 2, 3].map((_, idx) => (
+              <div key={idx} className="mb-5">
+                <Shimmer className="h-[30vh] w-full mb-4 rounded-lg" />
+                <div className="between w-full">
+                  <Shimmer className="h-[30px] w-[30px]" />
+                  <Shimmer className="h-[30px] w-[30px]" />
+                </div>
+              </div>
+            ))}
+          </div>
+        ) : !post?.data?.length ? (
+          <div className="shadow mt-4 p-3 bgcard rounded-3xl">
+            <img src={frame} alt="frame" />
+            <h1 className="w-full text-center text-xl font-[700]">
+              No post Yet
+            </h1>
+          </div>
+        ) : (
+          post?.data?.map((data: ApiResponse, idx: number) => (
+            <div key={idx + (data?.id as string)}>
+              <div className="mt-10 text-[20px] font-[600] w-full border-b mb-5">
+                Posts
+              </div>
+              <PostCard data={data} />
+            </div>
+          ))
+        )}
       </div>
     </>
   );

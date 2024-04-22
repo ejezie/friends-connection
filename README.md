@@ -80,6 +80,10 @@ node dist/index.js
 
 The server should now be live, and you will be informed about the port it is operating on via console messages.
 
+### API DOCUMENTATION
+
+please visit https://documenter.getpostman.com/view/18403916/2sA3BobruW for full documentation
+
 ## Setting Up the Client
 
 ### Navigate to the Client Directory
@@ -103,7 +107,7 @@ To install all necessary dependencies, run:
 Launch the client with:
 
 ```
-   pnpm start
+   pnpm run dev
 ```
 
 The client should now be actively running, and a message will display the URL and port number of the development server.
