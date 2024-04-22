@@ -4,7 +4,7 @@
 
 # Running the Codebase
 
-Please read guide to will walk you through setting up and running the codebase on a your machine, detailing the process for both the server and the client setups.
+Please read this guide to walk you through setting up and running the codebase on your machine, detailing the process for both the server and the client setups.
 
 ## Prerequisites
 
