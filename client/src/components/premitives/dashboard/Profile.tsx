@@ -13,7 +13,7 @@ const Profile = () => {
 
   return (
     <>
-      <div className="w-full bg-primary flex flex-col items-center shadow mb-4  rounded-[29px] p-10 bgcard ">
+      <div className="w-full bg-primary flex flex-col items-center shadow mb-4  rounded-[29px] p-2 lg:p-5 bgcard ">
         <div className="shadow w-full p-5 rounded-xl">
           <div className="w-full flex items-center justify-between pb-5  ">
             <div className="flex gap-2 w-full">

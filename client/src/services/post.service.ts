@@ -41,6 +41,7 @@ const postApiSlice = apiSlice.injectEndpoints({
         url: `${USER_POST}/${id}`,
         method: "GET",
       }),
+      providesTags: ["Post"],
     }),
   }),
 });
